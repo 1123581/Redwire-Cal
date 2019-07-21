@@ -109,12 +109,16 @@ def com(bot, update):
             data['time'] = inputs.split(',')[3]
             time = int(data['time'])
             formula = round(initial*(1+(risk_percent / 100 / (1 / reward_percent) / 100)) ** time, 2)
-            output = str(formula)
+            total = str(formula)
+            profit = round(formula - initial, 2)
+            preturn = round((profit / initial) * 100)
+            output = str(profit)
+            prof = str(preturn)
             print(formula)
             bot.send_message(chat_id=update.message.chat_id,
                              text='Initial Capital: ' + data['initial'] + '\n' + 'Risk Percent: ' + data['risk percent'] + '\n' + 'Reward Percent: ' + data['reward percent'] + '\n' + 'Time: ' + data['time'])
             bot.send_message(chat_id=update.message.chat_id,
-                             text='Return: ' + output)
+                             text='Total: ' + total + '\n' + 'Return: ' + output + '\n' + 'Percent Profit: ' + prof + '%')
             return ConversationHandler.END
         except:
             bot.send_message(chat_id=update.message.chat_id,
